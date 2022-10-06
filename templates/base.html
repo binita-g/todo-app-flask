@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>todo app</title>
+    <title>Todo App</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
     <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
@@ -13,6 +13,7 @@
 <body>
     <h1>Todo App</h1>
 
+    <!-- Set up todo list as submit form -->
     <form action="/add" method="post">
         <div>
             <label for="title">Todo Title</label>
@@ -22,18 +23,29 @@
         </div>
     </form>
 
+    <!-- Populate with each task in the to do list -->
     {% for todo in todo_list %}
     <div class="ui segment">
         <p class="ui big header"> {{ todo.id }} | {{ todo.title }} </p>
 
+        <!-- Mark item as complete or incomplete -->
         {% if todo.complete == False %}
             <span>Not Complete</span>
         {% else %}
             <span>Completed</span>
         {% endif %}
 
+        <!-- Mark item as prioritized or unprioritized -->
+        {% if todo.starred == False %}
+            <span> </span>
+        {% else %}
+            <span>&#11088;</span>
+        {% endif %}
+
+        <!-- Buttons for update, delete, and priority -->
         <a class="ui blue button" href="/update/{{ todo.id }}">Update</a>
         <a class="ui red button" href="/delete/{{ todo.id }}">Delete</a>
+        <a class="ui green button" href="/star/{{ todo.id }}" id="mark">Update Priority</a>
     
     </div>
     {% endfor %}
